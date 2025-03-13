@@ -23,9 +23,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # This is where the Sauce Connect setup goes
+      - name: Set up Sauce Connect
+        run: |
+          curl -L https://saucelabs.com/downloads/sc-4.8.2-linux.tar.gz | tar -xz
+          cd sc-*-linux && ./bin/sc -u $SAUCE_USERNAME -k $SAUCE_ACCESS_KEY -i github-tunnel &
+          sleep 10 # Wait for tunnel to establish
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+
       - name: Run tests on Sauce Labs
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
           BUILD_ID: GitHub-${{ github.run_id }}
-        run: pytest -v
+        run: pytest -v -n 4  # Run with 4 parallel processes
