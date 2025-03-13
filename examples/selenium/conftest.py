@@ -14,9 +14,12 @@ def headless_driver(request):
     options.platform_name = 'Windows 10'
     options.headless = True
 
-    sauce_options = {'username': os.environ["SAUCE_USERNAME"],
-                     'accessKey': os.environ["SAUCE_ACCESS_KEY"],
-                     'name': request.node.name}
+    sauce_options = {
+    'username': 'oauth-stefano.loi-d4a95',
+    'accessKey': '6d8cae05-8c01-402d-a337-ba67273b5023',
+    'build': '123',
+    'name': 'test1',
+}
 
     options.set_capability('sauce:options', sauce_options)
     sauce_url = "https://ondemand.us-west-1.saucelabs.com/wd/hub"
@@ -37,9 +40,12 @@ def driver(request):
     options.browser_version = 'latest'
     options.platform_name = 'Windows 10'
 
-    sauce_options = {'username': os.environ["SAUCE_USERNAME"],
-                     'accessKey': os.environ["SAUCE_ACCESS_KEY"],
-                     'name': request.node.name}
+    sauce_options = {
+    'username': 'oauth-stefano.loi-d4a95',
+    'accessKey': '6d8cae05-8c01-402d-a337-ba67273b5023',
+    'build': '123',
+    'name': 'test1',
+}
 
     options.set_capability('sauce:options', sauce_options)
     sauce_url = "https://ondemand.us-west-1.saucelabs.com/wd/hub"
